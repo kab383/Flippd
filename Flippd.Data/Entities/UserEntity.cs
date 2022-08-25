@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Flippd.Data.Entities
 {
-    public class User
+    public class UserEntity
     {
         [Key]
         public int Id { get; set; }
