@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Flippd.Services\Flippd.Services.csproj" />
+    <ProjectReference Include="..\Flippd.Models\Flippd.Models.csproj" />
+    <ProjectReference Include="..\Flippd.Data\Flippd.Data.csproj" />
+  </ItemGroup>
+
 </Project>
