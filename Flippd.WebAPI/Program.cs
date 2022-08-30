@@ -1,7 +1,10 @@
 using Flippd.Data;
+using Flippd.Services.User;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 
