@@ -19,5 +19,6 @@ namespace Flippd.Data.Entities
         [Required]
         public string Password { get; set; }
         public IList<ListingEntity> MyListings { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }
