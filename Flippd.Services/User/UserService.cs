@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Flippd.Data;
 using Flippd.Data.Entities;
 using Flippd.Models.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flippd.Services.User
 {
@@ -17,6 +18,9 @@ namespace Flippd.Services.User
         }
         public async Task<bool> RegisterUserAsync(UserRegister model)
         {
+            if(await GetUserByEmailAsync(model.Email) != null || await GetUserByEmailAsync(model.Username) != null)
+            return false;
+
             var entity = new UserEntity
             {
                 Email = model.Email,
@@ -28,6 +32,16 @@ namespace Flippd.Services.User
             var numberOfChanges = await _context.SaveChangesAsync();
 
             return numberOfChanges == 1;
+        }
+
+        private async Task<UserEntity> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(user => user.Email.ToLower() == email.ToLower());
+        }
+
+        private async Task<UserEntity> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(user => user.Username.ToLower() == username.ToLower());
         }
     }
 }
