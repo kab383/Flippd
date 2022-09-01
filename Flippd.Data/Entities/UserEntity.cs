@@ -16,8 +16,8 @@ namespace Flippd.Data.Entities
         [Required]
         public string Username { get; set; }
         public string PhoneNumber { get; set; }
+        public IList<ListingEntity> MyListings { get; set; }
         [Required]
         public string Password { get; set; }
-        public IList<ListingEntity> MyListings { get; set; }
     }
 }

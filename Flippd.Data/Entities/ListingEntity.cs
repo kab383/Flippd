@@ -28,7 +28,7 @@ namespace Flippd.Data.Entities
         [Required]
         public DateTime DatePosted { get; set; }
         [ForeignKey("PropertyFeatures")]
-        public int PropertyFeaturesId { get; set; }
+        public int databasePropertyFeaturesId { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
     }
