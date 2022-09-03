@@ -35,5 +35,17 @@ namespace Flippd.WebAPI.Controllers
 
             return BadRequest("Listing could not be registered");
         }
+
+        [HttpGet("{listingId:int}")]
+        public async Task<IActionResult> GetByListingId([FromRoute] int listingId)
+        {
+            var listingDetail = await _service.GetListingByIdAsync(listingId);
+
+            if (listingDetail is null)
+            {
+                return NotFound();
+            }
+            return Ok(listingDetail);
+        }
     }
 }
