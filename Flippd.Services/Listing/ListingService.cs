@@ -46,5 +46,25 @@ namespace Flippd.Services.Listing
         {
             return await _context.Listings.FirstOrDefaultAsync(Listing => Listing.City.ToLower() == city.ToLower());
         }
+
+        public async Task<ListingDetail> GetListingByIdAsync(int listingId)
+        {
+            var entity = await _context.Listings.FindAsync(listingId);
+            if (entity is null)
+            return null;
+
+            var listingDetail = new ListingDetail
+            {
+                Id = entity.Id,
+                Price = entity.Price,
+                StreetAddress = entity.StreetAddress,
+                City = entity.City,
+                State = entity.State,
+                //PropType = entity.PropType,
+                Zip = entity.Zip,
+                
+            };
+            return listingDetail;
+        }
     }
 }

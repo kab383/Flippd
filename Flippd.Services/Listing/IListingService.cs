@@ -9,5 +9,6 @@ namespace Flippd.Services.Listing
     public interface IListingService
     {
         Task<bool> RegisterListingAsync(ListingRegister model);
+        Task<ListingDetail> GetListingByIdAsync(int listingId);
     }
 }
