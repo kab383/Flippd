@@ -27,9 +27,9 @@ namespace Flippd.Data.Entities
         public PropertyType PropType { get; set; }
         [Required]
         public DateTime DatePosted { get; set; }
-        [ForeignKey("PropertyFeatures")]
+        [ForeignKey("PropertyFeaturesEntity")]
         public int databasePropertyFeaturesId { get; set; }
-        [ForeignKey("User")]
+        [ForeignKey("UserEntity")]
         public int UserId { get; set; }
     }
     public enum PropertyType { house, townhome, multi_family, condo }
