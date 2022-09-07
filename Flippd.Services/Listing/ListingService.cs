@@ -11,6 +11,7 @@ namespace Flippd.Services.Listing
 {
     public class ListingService : IListingService
     {
+        private readonly int _listingId;
         private readonly ApplicationDbContext _context;
         public ListingService(ApplicationDbContext context)
         {
@@ -65,6 +66,46 @@ namespace Flippd.Services.Listing
                 
             };
             return listingDetail;
+        }
+
+        public async Task<IEnumerable<ListingListItem>> GetAllListingsAsync()
+        {
+            var listings = await _context.Listings.Select(entity => new ListingListItem
+            {
+                Id = entity.Id,
+                StreetAddress = entity.StreetAddress,
+                Price = entity.Price,
+                DatePosted = entity.DatePosted,
+
+            })
+            .ToListAsync();
+            return listings;
+            ;
+            
+        }
+
+        public async Task<bool> UpdateListingAsync(ListingUpdate request)
+        {
+            var listingEntity = await _context.Listings.FindAsync(request.Id);
+            if (listingEntity?.Id != _listingId)
+            return false;
+
+            listingEntity.Id = request.Id;
+            listingEntity.StreetAddress = request.StreetAddress;
+            listingEntity.City = request.City;
+            listingEntity.State = request.State;
+            listingEntity.Zip = request.Zip;
+
+            var numberOfChanges = await _context.SaveChangesAsync();
+
+            return numberOfChanges == 1;
+        }
+
+        public async Task<bool> DeleteListingAsync(int listingId)
+        {
+            var listingEntity = await _context.Listings.FindAsync(listingId);
+            _context.Listings.Remove(listingEntity);
+            return await _context.SaveChangesAsync() == 1;
         }
     }
 }

@@ -35,5 +35,43 @@ namespace Flippd.WebAPI.Controllers
 
             return BadRequest("Listing could not be registered");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllListings()
+        {
+            var listings = await _service.GetAllListingsAsync();
+            return Ok(listings);
+        }
+
+        [HttpGet("{listingId:int}")]
+        public async Task<IActionResult> GetByListingId([FromRoute] int listingId)
+        {
+            var listingDetail = await _service.GetListingByIdAsync(listingId);
+
+            if (listingDetail is null)
+            {
+                return NotFound();
+            }
+            return Ok(listingDetail);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateListingById([FromBody] ListingUpdate request)
+        {
+            if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+            return await _service.UpdateListingAsync(request)
+            ? Ok("Listing updated successfully.")
+            : BadRequest("Listing could not be updated");
+        }
+
+        [HttpDelete("{listingId:int}")]
+        public async Task<IActionResult> DeleteListing([FromRoute] int listingId)
+        {
+            return await _service.DeleteListingAsync(listingId)
+            ? Ok($"Listing {listingId} was deleted successfully.")
+            : BadRequest($"Listing {listingId} could not be deleted.");
+        }
     }
 }
