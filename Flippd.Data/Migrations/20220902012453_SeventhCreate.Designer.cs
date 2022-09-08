@@ -4,6 +4,7 @@ using Flippd.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flippd.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220902012453_SeventhCreate")]
+    partial class SeventhCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +59,7 @@ namespace Flippd.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserEntityId")
                         .HasColumnType("int");
 
                     b.Property<int>("Zip")
@@ -67,7 +69,7 @@ namespace Flippd.Data.Migrations
 
                     b.HasIndex("PropertyFeaturesId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("Listings");
                 });
@@ -142,15 +144,11 @@ namespace Flippd.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Flippd.Data.Entities.UserEntity", "PropertyOwner")
+                    b.HasOne("Flippd.Data.Entities.UserEntity", null)
                         .WithMany("MyListings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserEntityId");
 
                     b.Navigation("PropFeatures");
-
-                    b.Navigation("PropertyOwner");
                 });
 
             modelBuilder.Entity("Flippd.Data.Entities.UserEntity", b =>

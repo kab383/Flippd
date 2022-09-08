@@ -27,10 +27,16 @@ namespace Flippd.Data.Entities
         public PropertyType PropType { get; set; }
         [Required]
         public DateTime DatePosted { get; set; }
-        [ForeignKey("PropertyFeatures")]
+
+        [ForeignKey(nameof(PropFeatures))]
         public int PropertyFeaturesId { get; set; }
-        [ForeignKey("User")]
+        public virtual PropertyFeaturesEntity PropFeatures { get; set; } = new PropertyFeaturesEntity();
+
+        [ForeignKey(nameof(PropertyOwner))]
         public int UserId { get; set; }
+        public virtual UserEntity PropertyOwner { get; set; } = new UserEntity();
+
+        // Virtual properties that represent dynamic data types
     }
-    public enum PropertyType { house, townhome, multi_family, condo }
+    public enum PropertyType { house = 1, townhome, multi_family, condo }
 }

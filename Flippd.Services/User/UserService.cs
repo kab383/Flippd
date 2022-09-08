@@ -43,5 +43,26 @@ namespace Flippd.Services.User
         {
             return await _context.Users.FirstOrDefaultAsync(user => user.Username.ToLower() == username.ToLower());
         }
+
+        public async Task<UserDetail> GetUserByIdAsync(int userId)
+        {
+            var entity = await _context.Users.Include(r => r.MyListings).FirstOrDefaultAsync(e => e.Id == userId);
+            // Need to use .Include with lamba expression before the request looks for the object by Id specified, so it can have the MyListings information to access once it arrives to the location we are pointing it to.
+            if(entity is null)
+            return null;
+
+            var userDetail = new UserDetail
+            {
+                Id = entity.Id,
+                Email = entity.Email,
+                Username = entity.Username,
+                PhoneNumber = entity.PhoneNumber,
+                MyListings = entity.MyListings
+            };
+
+            return userDetail;
+        }
+
+        
     }
 }
