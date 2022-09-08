@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Flippd.Data.Entities;
 
 namespace Flippd.Models.Listing
 {
@@ -23,5 +24,4 @@ namespace Flippd.Models.Listing
         public decimal Price { get; set; }
 
     }
-    public enum PropertyType {house, townhome, multi_family, condo}
 }

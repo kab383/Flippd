@@ -26,10 +26,13 @@ namespace Flippd.Services.Listing
             var entity = new ListingEntity
             {
                 StreetAddress = model.StreetAddress,
+                Price = model.Price,
+                IsActive = true,
                 City = model.City,
                 State = model.State,
                 Zip = model.Zip,
-                Price = model.Price
+                PropType = model.PropType,
+                
             };
 
             _context.Listings.Add(entity);
@@ -61,9 +64,46 @@ namespace Flippd.Services.Listing
                 StreetAddress = entity.StreetAddress,
                 City = entity.City,
                 State = entity.State,
-                //PropType = entity.PropType,
+                PropType = entity.PropType,
                 Zip = entity.Zip,
                 
+            };
+            return listingDetail;
+        }
+
+        public async Task<ListingDetail> GetAllListingsByCityAsync(string city)
+        {
+            var entity = await _context.Listings.FindAsync(city);
+            if (entity is null)
+            return null;
+
+            var listingDetail = new ListingDetail
+            {
+                Id = entity.Id,
+                Price = entity.Price,
+                StreetAddress = entity.StreetAddress,
+                City = entity.City,
+                State = entity.State,
+                Zip = entity.Zip
+            };
+            return listingDetail;
+        }
+
+        public async Task<ListingDetail> GetAllListingsByZipCode(int zip)
+        {
+            var entity = await _context.Listings.FindAsync(zip);
+            if(entity is null)
+            return null;
+
+            var listingDetail = new ListingDetail
+            {
+                Id = entity.Id,
+                Price = entity.Price,
+                StreetAddress = entity.StreetAddress,
+                City = entity.City,
+                State = entity.State,
+                PropType = entity.PropType,
+                Zip = entity.Zip
             };
             return listingDetail;
         }
@@ -87,10 +127,10 @@ namespace Flippd.Services.Listing
         public async Task<bool> UpdateListingAsync(ListingUpdate request)
         {
             var listingEntity = await _context.Listings.FindAsync(request.Id);
-            if (listingEntity?.Id != _listingId)
-            return false;
+            
 
             listingEntity.Id = request.Id;
+            //listingEntity.IsActive = request.
             listingEntity.StreetAddress = request.StreetAddress;
             listingEntity.City = request.City;
             listingEntity.State = request.State;

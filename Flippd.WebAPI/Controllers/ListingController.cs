@@ -43,6 +43,17 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listings);
         }
 
+        [HttpGet("{city:string}")]
+        public async Task<IActionResult> GetAllListingsByCity([FromRoute] string city)
+        {
+            var listingDetail = await _service.GetAllListingsByCityAsync(city);
+            if(listingDetail is null)
+            {
+                return NotFound();
+            }
+            return Ok(listingDetail);
+        }
+
         [HttpGet("{listingId:int}")]
         public async Task<IActionResult> GetByListingId([FromRoute] int listingId)
         {
