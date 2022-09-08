@@ -43,7 +43,7 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listings);
         }
 
-        [HttpGet("{city:string}")]
+        [HttpGet]
         public async Task<IActionResult> GetAllListingsByCity([FromRoute] string city)
         {
             var listingDetail = await _service.GetAllListingsByCityAsync(city);
@@ -66,7 +66,7 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listingDetail);
         }
 
-        [HttpPut]
+        [HttpPut("{listingId:int}")]
         public async Task<IActionResult> UpdateListingById([FromBody] ListingUpdate request)
         {
             if(!ModelState.IsValid)

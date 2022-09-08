@@ -129,8 +129,8 @@ namespace Flippd.Services.Listing
             var listingEntity = await _context.Listings.FindAsync(request.Id);
             
 
-            listingEntity.Id = request.Id;
-            //listingEntity.IsActive = request.
+            
+            //listingEntity.IsActive = false;
             listingEntity.StreetAddress = request.StreetAddress;
             listingEntity.City = request.City;
             listingEntity.State = request.State;
