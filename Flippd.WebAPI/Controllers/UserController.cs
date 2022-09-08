@@ -49,15 +49,15 @@ namespace Flippd.WebAPI.Controllers
             return Ok(userDetail);
         }
 
-        // [HttpPut]
-        // public async Task<IActionResult> ChangeUserPassword([FromBody] UserUpdate request)
-        // {
-        //     if (!ModelState.IsValid)
-        //         return BadRequest(ModelState);
+        [HttpPut]
+        public async Task<IActionResult> UpdateUserInfoByIdAsync([FromBody] UserUpdate request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //     return await _service.UserUpdate(request)
-        //     ? Ok("Password changed successfully.")
-        //     : BadRequest("Password could not be changed at this time.");
-        // }
+            return await _service.UpdateUserInfoByIdAsync(request)
+            ? Ok("Account information changed successfully.")
+            : BadRequest("Account information could not be changed at this time.");
+        }
     }
 }

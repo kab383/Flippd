@@ -63,18 +63,20 @@ namespace Flippd.Services.User
             return userDetail;
         }
 
-        // public async Task<bool> ChangeUserPasswordAsync(UserUpdate request)
-        // {
-        //     var userEntity = await _context.Users.FindAsync(request.Id);
+        public async Task<bool> UpdateUserInfoByIdAsync(UserUpdate request)
+        {
+            var userEntity = await _context.Users.FindAsync(request.Id);
 
-        //     if (userEntity?.Id != Id)
-        //         return false;
+            if (userEntity?.Id != request.Id)
+                return false;
 
-        //     userEntity.Password = request.Password;
+            userEntity.Email = request.Email;
+            userEntity.PhoneNumber = request.PhoneNumber;
+            userEntity.Password = request.Password;
 
-        //     var numberOfChanges = await _context.SaveChangesAsync();
+            var numberOfChanges = await _context.SaveChangesAsync();
 
-        //     return numberOfChanges == 1;
-        // }
+            return numberOfChanges == 1;
+        }
     }
 }
