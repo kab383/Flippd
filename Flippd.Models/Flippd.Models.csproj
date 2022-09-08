@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Flippd.Data\Flippd.Data.csproj" />
+  </ItemGroup>
+
 </Project>
