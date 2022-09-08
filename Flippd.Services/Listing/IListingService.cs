@@ -10,6 +10,8 @@ namespace Flippd.Services.Listing
     {
         Task<bool> RegisterListingAsync(ListingRegister model);
         Task<ListingDetail> GetListingByIdAsync(int listingId);
+        Task<ListingDetail> GetAllListingsByCityAsync(string city);
+        Task<ListingDetail> GetAllListingsByZipCode(int zip);
         Task<IEnumerable<ListingListItem>> GetAllListingsAsync();
         Task<bool> UpdateListingAsync(ListingUpdate request);
         Task<bool> DeleteListingAsync(int listingId);

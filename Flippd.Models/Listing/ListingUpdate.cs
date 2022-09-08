@@ -11,16 +11,10 @@ namespace Flippd.Models.Listing
         [Required]
         public int Id { get; set; }
         [Required]
-        [MinLength(2,ErrorMessage = "{0} must be at least {1} characters long.")]
-        [MaxLength(200, ErrorMessage = "{0} must contain no more than {1} characters" )]
         public string StreetAddress { get; set; }
         [Required]
-        [MinLength(2,ErrorMessage = "{0} must be at least {1} characters long.")]
-        [MaxLength(200, ErrorMessage = "{0} must contain no more than {1} characters" )]
         public string City { get; set; }
         [Required]
-        [MinLength(2,ErrorMessage = "{0} must be at least {1} characters long.")]
-        [MaxLength(200, ErrorMessage = "{0} must contain no more than {1} characters" )]
         public string State { get; set; }
         [Required]
         public int Zip { get; set; }
