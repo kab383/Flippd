@@ -48,5 +48,16 @@ namespace Flippd.WebAPI.Controllers
 
             return Ok(userDetail);
         }
+
+        // [HttpPut]
+        // public async Task<IActionResult> ChangeUserPassword([FromBody] UserUpdate request)
+        // {
+        //     if (!ModelState.IsValid)
+        //         return BadRequest(ModelState);
+
+        //     return await _service.UserUpdate(request)
+        //     ? Ok("Password changed successfully.")
+        //     : BadRequest("Password could not be changed at this time.");
+        // }
     }
 }
