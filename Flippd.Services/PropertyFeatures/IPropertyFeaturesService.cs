@@ -13,5 +13,6 @@ namespace Flippd.Services.PropertyFeatures
 
         // Task<ListingEntity> GetPropertyFeaturesByListingId(int PropertyFeaturesId);
         Task<IEnumerable<PropertyFeaturesDetail>> GetPropertyFeaturesByListingIdAsync(int ListingId);
+        Task<bool> UpdatePropertyFeaturesAsync(PropertyFeaturesUpdate request);
     }
 }

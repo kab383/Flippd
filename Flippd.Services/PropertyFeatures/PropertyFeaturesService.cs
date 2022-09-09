@@ -54,5 +54,27 @@ namespace Flippd.Services.PropertyFeatures
             return PropertyFeaturesDetail;
 
         }
+
+        public async Task<bool> UpdatePropertyFeaturesAsync(PropertyFeaturesUpdate request)
+        {
+            // Find the Listing and Validate It's Owned by the user.
+            var PropertyFeaturesEntity = await _context.PropertyFeatures.FindAsync(request.Id);
+
+            // By using the null conditional operator we can check if it's null at the same time we check the OwnerId.
+            if (PropertyFeatures?.OwnerId != _)
+
+                // Update the entity's properties.
+                PropertyFeaturesEntity.Bedrooms = request.Bedrooms;
+                PropertyFeaturesEntity.Baths = request.Baths;
+                PropertyFeaturesEntity.GarageSpaces = request.
+
+
+
+            // Save the changes to the database and capture how many rows were updated.
+            var numberOfChanges = await _context.SaveChangesAsync();
+
+            // numberOfChanges is stated to be equal to 1 because only one row is updated.
+            return numberOfChanges == 1;
+        }
     }
 }
