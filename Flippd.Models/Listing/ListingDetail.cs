@@ -15,6 +15,6 @@ namespace Flippd.Models.Listing
         public int Zip { get; set; }
         public PropertyType PropType { get; set; }
         public decimal Price { get; set; }
-        
+        // public virtual List<PropertyFeaturesEntity> ListingFeatures { get; set; } = new List<PropertyFeaturesEntity>();
     }
 }

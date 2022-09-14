@@ -19,26 +19,21 @@ namespace Flippd.Services.Listing
         }
         public async Task<bool> RegisterListingAsync(ListingRegister model)
         {
-            if (await GetListingByStreetAddressAsync(model.StreetAddress) != null || await GetListingByCityAsync(model.City) != null)
-            {
-                return false;
-            }
             var entity = new ListingEntity
             {
+                Id = model.Id,
                 StreetAddress = model.StreetAddress,
-                Price = model.Price,
-                IsActive = true,
                 City = model.City,
                 State = model.State,
                 Zip = model.Zip,
                 PropType = model.PropType,
-                
+                Price = model.Price,
             };
 
             _context.Listings.Add(entity);
             var numberOfChanges = await _context.SaveChangesAsync();
 
-            return numberOfChanges == 1;
+            return numberOfChanges == 3;
         }
 
         private async Task<ListingEntity> GetListingByStreetAddressAsync(string streetaddress)
@@ -66,7 +61,6 @@ namespace Flippd.Services.Listing
                 State = entity.State,
                 PropType = entity.PropType,
                 Zip = entity.Zip,
-                
             };
             return listingDetail;
         }
@@ -128,9 +122,6 @@ namespace Flippd.Services.Listing
         {
             var listingEntity = await _context.Listings.FindAsync(request.Id);
             
-
-            
-            //listingEntity.IsActive = false;
             listingEntity.StreetAddress = request.StreetAddress;
             listingEntity.City = request.City;
             listingEntity.State = request.State;
