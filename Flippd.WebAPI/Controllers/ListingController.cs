@@ -54,6 +54,17 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listingDetail);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllListingsByZip([FromBody]int zip)
+        {
+            var listingDetail = await _service.GetAllListingsByZipCode(zip);
+            if(listingDetail is null)
+            {
+                return NotFound();
+            }
+            return Ok(listingDetail);
+        }
+
         [HttpGet("{listingId:int}")]
         public async Task<IActionResult> GetByListingId([FromRoute] int listingId)
         {
