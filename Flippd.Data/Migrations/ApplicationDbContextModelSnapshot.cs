@@ -66,6 +66,11 @@ namespace Flippd.Data.Migrations
                     b.Property<int>("Zip")
                         .HasColumnType("int");
 
+
+                   // b.HasKey("Id");
+
+                   // b.HasIndex("UserEntityId");
+
                     b.Property<int>("databasePropertyFeaturesId")
                         .HasColumnType("int");
 
@@ -76,6 +81,7 @@ namespace Flippd.Data.Migrations
                     b.HasIndex("PropertyFeaturesId");
 
                     b.HasIndex("UserId");
+
 
                     b.ToTable("Listings");
                 });
@@ -119,8 +125,10 @@ namespace Flippd.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
+
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -131,6 +139,9 @@ namespace Flippd.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+
+                   //     .IsRequired()
+
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -144,6 +155,11 @@ namespace Flippd.Data.Migrations
 
             modelBuilder.Entity("Flippd.Data.Entities.ListingEntity", b =>
                 {
+
+                 //   b.HasOne("Flippd.Data.Entities.UserEntity", null)
+                    //    .WithMany("MyListings")
+                     //   .HasForeignKey("UserEntityId");
+
                     b.HasOne("Flippd.Data.Entities.PropertyFeaturesEntity", "PropFeatures")
                         .WithMany()
                         .HasForeignKey("PropertyFeaturesId")
@@ -159,6 +175,7 @@ namespace Flippd.Data.Migrations
                     b.Navigation("PropFeatures");
 
                     b.Navigation("PropertyOwner");
+
                 });
 
             modelBuilder.Entity("Flippd.Data.Entities.UserEntity", b =>
