@@ -34,9 +34,9 @@ namespace Flippd.Services.PropertyFeatures
             return numberOfChanges == 1;
         }
 
-        public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByListingIdAsync(int ListingId)
+        public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByListingIdAsync(int PropertyFeaturesId)
         {
-            var entity = await _context.PropertyFeatures.Include(r => r.ListingEntity).FindAsync(entity => entity.Id == ListingId);
+            var entity = await _context.PropertyFeatures.Include(r => r.ListingEntity).FirstOrDefaultAsync(e => e.Id == PropertyFeaturesId);
             if(entity is null)
                 return null;
 
@@ -57,24 +57,23 @@ namespace Flippd.Services.PropertyFeatures
 
         public async Task<bool> UpdatePropertyFeaturesAsync(PropertyFeaturesUpdate request)
         {
-            // Find the Listing and Validate It's Owned by the user.
-            var PropertyFeaturesEntity = await _context.PropertyFeatures.FindAsync(request.Id);
-
-            // By using the null conditional operator we can check if it's null at the same time we check the OwnerId.
-            if (PropertyFeatures?.OwnerId != _)
-
-                // Update the entity's properties.
-                PropertyFeaturesEntity.Bedrooms = request.Bedrooms;
-                PropertyFeaturesEntity.Baths = request.Baths;
-                PropertyFeaturesEntity.GarageSpaces = request.
+            var propertyFeaturesEntity = await _context.PropertyFeatures.FindAsync(request.Id);
 
 
+            if (propertyFeaturesEntity?.Id != request.Id)
+                return false;
+            // Update the entity's properties.
+            propertyFeaturesEntity.Bedrooms = request.Bedrooms;
+            propertyFeaturesEntity.Baths = request.Baths;
+            propertyFeaturesEntity.GarageSpaces = request.GarageSpaces;
+            propertyFeaturesEntity.SquareFootage = request.SquareFootage;
+            propertyFeaturesEntity.LotSize = request.LotSize;
+            propertyFeaturesEntity.YearBuilt = request.YearBuilt;
 
-            // Save the changes to the database and capture how many rows were updated.
             var numberOfChanges = await _context.SaveChangesAsync();
 
-            // numberOfChanges is stated to be equal to 1 because only one row is updated.
             return numberOfChanges == 1;
         }
+
     }
 }

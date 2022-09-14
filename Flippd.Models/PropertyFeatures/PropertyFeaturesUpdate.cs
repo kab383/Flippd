@@ -10,15 +10,21 @@ namespace Flippd.Models.PropertyFeatures
     {
         [Required]
         public int Id { get; set; }
-        
+
         [Required]
         public int Bedrooms { get; set; }
 
         [Required]
         public decimal Baths { get; set; }
+        
+        [Required]
+        public int GarageSpaces{ get; set; }
 
         [Required]
         public int SquareFootage { get; set; }
+
+        [Required]
+        public int LotSize { get; set; }
 
         [Required]
         public int YearBuilt { get; set; }

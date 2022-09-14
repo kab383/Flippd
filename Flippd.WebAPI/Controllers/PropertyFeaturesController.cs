@@ -48,5 +48,17 @@ namespace Flippd.WebAPI.Controllers
 
             return Ok(PropertyFeaturesDetail);
         }
+
+        // PUT 
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdatePropertyFeaturesById([FromBody] PropertyFeaturesUpdate request)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return await _service.UpdatePropertyFeaturesAsync(request)
+            ? Ok("Property Features updated successfully.")
+            : BadRequest("Property Features could not be updated.");
+        }
     }
 }
