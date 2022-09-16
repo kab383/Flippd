@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flippd.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220830220413_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220915223839_initialcreate2")]
+    partial class initialcreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,9 +59,6 @@ namespace Flippd.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserEntityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -70,7 +67,9 @@ namespace Flippd.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEntityId");
+                    b.HasIndex("PropertyFeaturesId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Listings");
                 });
@@ -114,6 +113,9 @@ namespace Flippd.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -123,7 +125,6 @@ namespace Flippd.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -137,9 +138,21 @@ namespace Flippd.Data.Migrations
 
             modelBuilder.Entity("Flippd.Data.Entities.ListingEntity", b =>
                 {
-                    b.HasOne("Flippd.Data.Entities.UserEntity", null)
+                    b.HasOne("Flippd.Data.Entities.PropertyFeaturesEntity", "PropFeatures")
+                        .WithMany()
+                        .HasForeignKey("PropertyFeaturesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Flippd.Data.Entities.UserEntity", "PropertyOwner")
                         .WithMany("MyListings")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PropFeatures");
+
+                    b.Navigation("PropertyOwner");
                 });
 
             modelBuilder.Entity("Flippd.Data.Entities.UserEntity", b =>

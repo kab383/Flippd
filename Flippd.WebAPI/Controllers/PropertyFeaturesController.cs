@@ -36,18 +36,18 @@ namespace Flippd.WebAPI.Controllers
             return BadRequest("Property features could not be added");
         }
         
-        [HttpGet("{listingId:int}")]
-        public async Task<IActionResult> GetById([FromRoute] int listingId)
-        {
-            var PropertyFeaturesDetail = await _service.GetPropertyFeaturesByListingIdAsync(listingId);
+        // [HttpGet("{listingId:int}")]
+        // public async Task<IActionResult> GetById([FromRoute] int listingId)
+        // {
+        //     var PropertyFeaturesDetail = await _service.GetPropertyFeaturesByListingIdAsync(listingId);
 
-            if (PropertyFeaturesDetail is null)
-            {
-                return NotFound();
-            }
+        //     if (PropertyFeaturesDetail is null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return Ok(PropertyFeaturesDetail);
-        }
+        //     return Ok(PropertyFeaturesDetail);
+        // }
 
         // PUT 
         [HttpPut("Update")]
