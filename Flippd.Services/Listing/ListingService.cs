@@ -19,10 +19,10 @@ namespace Flippd.Services.Listing
         }
         public async Task<bool> RegisterListingAsync(ListingRegister model)
         {
-            if (await GetListingByStreetAddressAsync(model.StreetAddress) != null || await GetListingByCityAsync(model.City) != null)
-            {
-                return false;
-            }
+            // if (await GetListingByStreetAddressAsync(model.StreetAddress) != null || await GetListingByCityAsync(model.City) != null)
+            // {
+            //     return false;
+            // }
             var entity = new ListingEntity
             {
                 StreetAddress = model.StreetAddress,
@@ -32,6 +32,8 @@ namespace Flippd.Services.Listing
                 State = model.State,
                 Zip = model.Zip,
                 PropType = model.PropType,
+                PropertyFeaturesId = model.PropertyFeaturesId,
+                UserId = model.PropertyFeaturesId
                 
             };
 
@@ -135,6 +137,9 @@ namespace Flippd.Services.Listing
             listingEntity.City = request.City;
             listingEntity.State = request.State;
             listingEntity.Zip = request.Zip;
+            listingEntity.Price = request.Price;
+            listingEntity.PropertyFeaturesId = request.PropertyFeaturesId;
+            //listingEntity.UserId = request.UserId;
 
             var numberOfChanges = await _context.SaveChangesAsync();
 

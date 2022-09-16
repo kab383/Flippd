@@ -25,7 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddScoped<IListingService, ListingService>();
 
 
-builder.Services.AddScoped<IPropertyFeaturesService, PropertyFeaturesService>();
+//builder.Services.AddScoped<IPropertyFeaturesService, PropertyFeaturesService>();
 
 
 builder.Services.AddControllers().AddJsonOptions(x =>

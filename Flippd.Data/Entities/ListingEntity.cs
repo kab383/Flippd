@@ -33,11 +33,11 @@ namespace Flippd.Data.Entities
 
         [ForeignKey(nameof(PropFeatures))]
         public int PropertyFeaturesId { get; set; }
-        public virtual PropertyFeaturesEntity PropFeatures { get; set; } = new PropertyFeaturesEntity();
+        public virtual PropertyFeaturesEntity PropFeatures { get; set; }
 
         [ForeignKey(nameof(PropertyOwner))]
         public int UserId { get; set; }
-        public virtual UserEntity PropertyOwner { get; set; } = new UserEntity();
+        public virtual UserEntity PropertyOwner { get; set; }
 
         // Virtual properties that represent dynamic data types
     }

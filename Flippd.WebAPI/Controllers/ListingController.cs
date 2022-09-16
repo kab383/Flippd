@@ -43,7 +43,7 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listings);
         }
 
-        [HttpGet]
+        [HttpGet("City")]
         public async Task<IActionResult> GetAllListingsByCity([FromRoute] string city)
         {
             var listingDetail = await _service.GetAllListingsByCityAsync(city);
@@ -54,7 +54,7 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listingDetail);
         }
 
-        [HttpGet]
+        [HttpGet("Zip")]
         public async Task<IActionResult> GetAllListingsByZip([FromBody]int zip)
         {
             var listingDetail = await _service.GetAllListingsByZipCode(zip);
@@ -77,7 +77,7 @@ namespace Flippd.WebAPI.Controllers
             return Ok(listingDetail);
         }
 
-        [HttpPut("{listingId:int}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateListingById([FromBody] ListingUpdate request)
         {
             if(!ModelState.IsValid)
