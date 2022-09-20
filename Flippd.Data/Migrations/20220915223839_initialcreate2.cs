@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Flippd.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialcreate2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,8 +35,9 @@ namespace Flippd.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,23 +59,34 @@ namespace Flippd.Data.Migrations
                     PropType = table.Column<int>(type: "int", nullable: false),
                     DatePosted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PropertyFeaturesId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserEntityId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Listings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Listings_Users_UserEntityId",
-                        column: x => x.UserEntityId,
+                        name: "FK_Listings_PropertyFeatures_PropertyFeaturesId",
+                        column: x => x.PropertyFeaturesId,
+                        principalTable: "PropertyFeatures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Listings_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Listings_UserEntityId",
+                name: "IX_Listings_PropertyFeaturesId",
                 table: "Listings",
-                column: "UserEntityId");
+                column: "PropertyFeaturesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Listings_UserId",
+                table: "Listings",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
