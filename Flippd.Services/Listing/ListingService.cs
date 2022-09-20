@@ -33,8 +33,7 @@ namespace Flippd.Services.Listing
                 Zip = model.Zip,
                 PropType = model.PropType,
                 PropertyFeaturesId = model.PropertyFeaturesId,
-                UserId = model.PropertyFeaturesId
-                
+                UserId = model.UserId
             };
 
             _context.Listings.Add(entity);
