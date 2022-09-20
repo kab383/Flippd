@@ -27,14 +27,17 @@ namespace Flippd.Data.Entities
         public PropertyType PropType { get; set; }
         [Required]
         public DateTime DatePosted { get; set; }
+        //[ForeignKey("PropertyFeaturesEntity")]
+        //public int databasePropertyFeaturesId { get; set; }
+        //[ForeignKey("UserEntity")]
 
         [ForeignKey(nameof(PropFeatures))]
         public int PropertyFeaturesId { get; set; }
-        public virtual PropertyFeaturesEntity PropFeatures { get; set; } = new PropertyFeaturesEntity();
+        public virtual PropertyFeaturesEntity PropFeatures { get; set; }
 
         [ForeignKey(nameof(PropertyOwner))]
         public int UserId { get; set; }
-        public virtual UserEntity PropertyOwner { get; set; } = new UserEntity();
+        public virtual UserEntity PropertyOwner { get; set; }
 
         // Virtual properties that represent dynamic data types
     }

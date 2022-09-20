@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flippd.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220907224840_EightCreate")]
-    partial class EightCreate
+    [Migration("20220915223839_initialcreate2")]
+    partial class initialcreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
