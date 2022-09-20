@@ -87,7 +87,8 @@ namespace Flippd.Services.User
             // Validate user exists
             if (userEntity?.Id != userId)
                 return false;
-
+            
+            // Remove user from the DbContext and confirm the change was saved
             _context.Users.Remove(userEntity);
             return await _context.SaveChangesAsync() == 1;
         }
