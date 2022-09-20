@@ -12,5 +12,6 @@ namespace Flippd.Services.User
         Task<bool> RegisterUserAsync(UserRegister model);
         Task<UserDetail> GetUserByIdAsync(int userId);
         Task<bool> UpdateUserInfoByIdAsync(UserUpdate request);
+        Task<bool> DeleteUserAsync(int userId);
     }
 }
