@@ -44,9 +44,9 @@ namespace Flippd.WebAPI.Controllers
         }
 
         [HttpGet("City")]
-        public async Task<IActionResult> GetAllListingsByCity([FromRoute] string city)
+        public async Task<IActionResult> GetAllListingsByCity([FromBody] ListingGetByCity city)
         {
-            var listingDetail = await _service.GetAllListingsByCityAsync(city);
+            var listingDetail = await _service.GetAllListingsByCityAsync(city.Name);
             if(listingDetail is null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace Flippd.WebAPI.Controllers
         }
 
         [HttpGet("Zip")]
-        public async Task<IActionResult> GetAllListingsByZip([FromBody]int zip)
+        public async Task<IActionResult> GetAllListingsByZip(int zip)
         {
             var listingDetail = await _service.GetAllListingsByZipCode(zip);
             if(listingDetail is null)
