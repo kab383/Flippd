@@ -9,7 +9,7 @@ that legwork for you. You can be rest assured that each home found on our applic
 
 WHY IT'S USEFUL: If used regularly, Flippd can become a core part of a house flipper's routine. Finding the right house is a difficult, time-consuming part of the process. With this app, the user will be able to browse relevant listings regularly without other, less relevant opportunities saturating the listing feed.
 
-HOW TO GET STARRTED: 
+HOW TO GET STARTED: 
 First thing would be to visit the URL where our application can be found, and register for an account. It will need pertinant information such as
 email, username, and password. Phone number is optional, but recommended as another method of contact incase someone is interested in your listing.
 Once registered you are free to post your own listings, and browse other listings for sale. Your profile will display all of your active and inactive
