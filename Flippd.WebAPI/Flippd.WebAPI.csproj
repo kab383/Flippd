@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
-   // <UserSecretsId>ec4b5141-59c3-45c3-9e10-49e36d00dc40</UserSecretsId>
+    <UserSecretsId>ec4b5141-59c3-45c3-9e10-49e36d00dc40</UserSecretsId>
 
-    <UserSecretsId>4e586701-7845-4455-93ad-0562592bb84d</UserSecretsId>
+    <!-- <UserSecretsId>4e586701-7845-4455-93ad-0562592bb84d</UserSecretsId> -->
 
+    <!-- <UserSecretsId>502579d4-0eb9-4f28-a2a4-699c11a5cc04</UserSecretsId> -->
+    <!-- <UserSecretsId>12f56595-7af8-49c6-b29d-8f12bc3adfe4</UserSecretsId> -->
   </PropertyGroup>
 
   <ItemGroup>
