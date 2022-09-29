@@ -22,6 +22,12 @@ namespace Flippd.Models.Listing
         public PropertyType PropType { get; set; }
         [Required]
         public decimal Price { get; set; }
+        [Required]
+        public int PropertyFeaturesId { get; set; }
+        [Required]
+        public int UserId { get; set; }
+
+
 
     }
 }

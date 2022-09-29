@@ -78,5 +78,19 @@ namespace Flippd.Services.User
 
             return numberOfChanges == 1;
         }
+
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            // Find user by the argument passed as userId
+            var userEntity = await _context.Users.FindAsync(userId);
+
+            // Validate user exists
+            if (userEntity?.Id != userId)
+                return false;
+            
+            // Remove user from the DbContext and confirm the change was saved
+            _context.Users.Remove(userEntity);
+            return await _context.SaveChangesAsync() == 1;
+        }
     }
 }

@@ -1,22 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Flippd.Data;
-using Flippd.Data.Entities;
-using Flippd.Models.PropertyFeatures;
-using Microsoft.EntityFrameworkCore;
+ using System;
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Threading.Tasks;
+ using Flippd.Data;
+ using Flippd.Data.Entities;
+ using Flippd.Models.PropertyFeatures;
+ using Microsoft.EntityFrameworkCore;
 
 
-namespace Flippd.Services.PropertyFeatures
-{
-    public class PropertyFeaturesService : IPropertyFeaturesService
-    {
-        private readonly ApplicationDbContext _context;
-        public PropertyFeaturesService(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+ namespace Flippd.Services.PropertyFeatures
+ {
+     public class PropertyFeaturesService : IPropertyFeaturesService
+     {
+         private readonly ApplicationDbContext _context;
+         public PropertyFeaturesService(ApplicationDbContext context)
+         {
+             _context = context;
+         }
 
         public async Task<bool> CreatePropertyFeaturesAsync(PropertyFeaturesCreate model)
         {
@@ -30,11 +30,12 @@ namespace Flippd.Services.PropertyFeatures
                 GarageSpaces = model.GarageSpaces
             };
 
-            _context.PropertyFeatures.Add(entity);
-            var numberOfChanges = await _context.SaveChangesAsync();
 
-            return numberOfChanges == 1;
-        }
+             _context.PropertyFeatures.Add(entity);
+             var numberOfChanges = await _context.SaveChangesAsync();
+
+             return numberOfChanges == 1;
+         }
 
         public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByListingIdAsync(int propertyFeaturesId)
         {
@@ -76,8 +77,7 @@ namespace Flippd.Services.PropertyFeatures
 
             return propertyFeaturesDetail;
 
-        }
-
+         }
 
         public async Task<bool> UpdatePropertyFeaturesAsync(PropertyFeaturesUpdate request)
         {
@@ -94,10 +94,10 @@ namespace Flippd.Services.PropertyFeatures
             propertyFeaturesEntity.LotSize = request.LotSize;
             propertyFeaturesEntity.YearBuilt = request.YearBuilt;
 
-            var numberOfChanges = await _context.SaveChangesAsync();
+             var numberOfChanges = await _context.SaveChangesAsync();
 
-            return numberOfChanges == 1;
-        }
+             return numberOfChanges == 1;
+         }
 
         public async Task<bool> DeletePropertyFeaturesAsync(int propertyFeaturesId)
         {
@@ -109,3 +109,4 @@ namespace Flippd.Services.PropertyFeatures
         }
     }
 }
+

@@ -19,10 +19,10 @@ namespace Flippd.Services.Listing
         }
         public async Task<bool> RegisterListingAsync(ListingRegister model)
         {
-            if (await GetListingByStreetAddressAsync(model.StreetAddress) != null || await GetListingByCityAsync(model.City) != null)
-            {
-                return false;
-            }
+            // if (await GetListingByStreetAddressAsync(model.StreetAddress) != null || await GetListingByCityAsync(model.City) != null)
+            // {
+            //     return false;
+            // }
             var entity = new ListingEntity
             {
                 StreetAddress = model.StreetAddress,
@@ -32,7 +32,8 @@ namespace Flippd.Services.Listing
                 State = model.State,
                 Zip = model.Zip,
                 PropType = model.PropType,
-                
+                PropertyFeaturesId = model.PropertyFeaturesId,
+                UserId = model.UserId
             };
 
             _context.Listings.Add(entity);
@@ -71,41 +72,50 @@ namespace Flippd.Services.Listing
             return listingDetail;
         }
 
-        public async Task<ListingDetail> GetAllListingsByCityAsync(string city)
+        public async Task<List<ListingDetail>> GetAllListingsByCityAsync(string city)
         {
-            var entity = await _context.Listings.FindAsync(city);
-            if (entity is null)
-            return null;
-
-            var listingDetail = new ListingDetail
-            {
-                Id = entity.Id,
-                Price = entity.Price,
-                StreetAddress = entity.StreetAddress,
-                City = entity.City,
-                State = entity.State,
-                Zip = entity.Zip
-            };
-            return listingDetail;
+            var entity = _context.Listings
+            // .FindAsync(city);
+            // if (entity is null)
+            // return null;
+                .Where(x=> x.City == city)
+                .Select(
+                    x => 
+                    new ListingDetail
+                        {
+                            Id = x.Id,
+                            Price = x.Price,
+                            StreetAddress = x.StreetAddress,
+                            City = x.City,
+                            State = x.State,
+                            Zip = x.Zip
+                        });
+                ;
+                
+            // var listingDetail = new ListingDetail
+            return entity.ToList();
         }
 
-        public async Task<ListingDetail> GetAllListingsByZipCode(int zip)
+        public async Task<List<ListingDetail>> GetAllListingsByZipCode(int zip)
         {
-            var entity = await _context.Listings.FindAsync(zip);
-            if(entity is null)
-            return null;
-
-            var listingDetail = new ListingDetail
-            {
-                Id = entity.Id,
-                Price = entity.Price,
-                StreetAddress = entity.StreetAddress,
-                City = entity.City,
-                State = entity.State,
-                PropType = entity.PropType,
-                Zip = entity.Zip
-            };
-            return listingDetail;
+            var entity = _context.Listings
+            // .FindAsync(zip);
+            // if(entity is null)
+            // return null;
+                .Where(x => x.Zip == zip)
+                .Select(
+                    x => 
+                    new ListingDetail
+                        {
+                            Id = x.Id,
+                            Price = x.Price,
+                            StreetAddress = x.StreetAddress,
+                            City = x.City,
+                            State = x.State,
+                            PropType = x.PropType,
+                            Zip = x.Zip
+                        });
+            return entity.ToList();
         }
 
         public async Task<IEnumerable<ListingListItem>> GetAllListingsAsync()
@@ -157,6 +167,9 @@ namespace Flippd.Services.Listing
             listingEntity.City = request.City;
             listingEntity.State = request.State;
             listingEntity.Zip = request.Zip;
+            listingEntity.Price = request.Price;
+            listingEntity.PropertyFeaturesId = request.PropertyFeaturesId;
+            //listingEntity.UserId = request.UserId;
 
             var numberOfChanges = await _context.SaveChangesAsync();
 

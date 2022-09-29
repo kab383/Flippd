@@ -59,5 +59,13 @@ namespace Flippd.WebAPI.Controllers
             ? Ok("Account information changed successfully.")
             : BadRequest("Account information could not be changed at this time.");
         }
+
+        [HttpDelete("{userId:int}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int userId)
+        {
+            return await _service.DeleteUserAsync(userId)
+                ? Ok($"User {userId} was deleted successfully.")
+                : BadRequest($"User {userId} could not be deleted.");
+        }
     }
 }
