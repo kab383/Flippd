@@ -13,6 +13,7 @@ namespace Flippd.Services.Listing
         Task<ListingDetail> GetAllListingsByCityAsync(string city);
         Task<ListingDetail> GetAllListingsByZipCode(int zip);
         Task<IEnumerable<ListingListItem>> GetAllListingsAsync();
+        Task<ListingDetail> GetPropertyFeaturesByListingId(int listingId);
         Task<bool> UpdateListingAsync(ListingUpdate request);
         Task<bool> DeleteListingAsync(int listingId);
 

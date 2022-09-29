@@ -25,7 +25,9 @@ namespace Flippd.Services.PropertyFeatures
                 Bedrooms = model.Bedrooms,
                 Baths = model.Baths,
                 SquareFootage = model.SquareFootage,
-                YearBuilt = model.YearBuilt
+                YearBuilt = model.YearBuilt,
+                LotSize = model.LotSize,
+                GarageSpaces = model.GarageSpaces
             };
 
             _context.PropertyFeatures.Add(entity);
@@ -34,13 +36,34 @@ namespace Flippd.Services.PropertyFeatures
             return numberOfChanges == 1;
         }
 
-        public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByListingIdAsync(int PropertyFeaturesId)
+        public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByListingIdAsync(int propertyFeaturesId)
         {
-            var entity = await _context.PropertyFeatures.Include(r => r.ListingEntity).FirstOrDefaultAsync(e => e.Id == PropertyFeaturesId);
+            var entity = await _context.Listings.Include(r => r.PropFeatures).FirstOrDefaultAsync(e => e.Id == propertyFeaturesId);
             if(entity is null)
                 return null;
 
-            var PropertyFeaturesDetail = new PropertyFeaturesDetail
+            var propertyFeaturesDetail = new PropertyFeaturesDetail
+            {
+                Id = entity.PropertyFeaturesId,
+                Bedrooms = entity.PropFeatures.Bedrooms,
+                Baths = entity.PropFeatures.Baths,
+                GarageSpaces = entity.PropFeatures.GarageSpaces,
+                SquareFootage = entity.PropFeatures.SquareFootage,
+                LotSize = entity.PropFeatures.LotSize,
+                YearBuilt = entity.PropFeatures.YearBuilt
+            };
+
+            return propertyFeaturesDetail;
+
+        }
+
+        public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByPropertyFeaturesIdAsync(int propertyFeaturesId)
+        {
+            var entity = await _context.PropertyFeatures.FirstOrDefaultAsync(e => e.Id == propertyFeaturesId);
+            if(entity is null)
+                return null;
+
+            var propertyFeaturesDetail = new PropertyFeaturesDetail
             {
                 Id = entity.Id,
                 Bedrooms = entity.Bedrooms,
@@ -51,16 +74,17 @@ namespace Flippd.Services.PropertyFeatures
                 YearBuilt = entity.YearBuilt
             };
 
-            return PropertyFeaturesDetail;
+            return propertyFeaturesDetail;
 
         }
+
 
         public async Task<bool> UpdatePropertyFeaturesAsync(PropertyFeaturesUpdate request)
         {
             var propertyFeaturesEntity = await _context.PropertyFeatures.FindAsync(request.Id);
 
 
-            if (propertyFeaturesEntity?.Id != request.Id)
+            if (propertyFeaturesEntity is null)
                 return false;
             // Update the entity's properties.
             propertyFeaturesEntity.Bedrooms = request.Bedrooms;
@@ -75,5 +99,13 @@ namespace Flippd.Services.PropertyFeatures
             return numberOfChanges == 1;
         }
 
+        public async Task<bool> DeletePropertyFeaturesAsync(int propertyFeaturesId)
+        {
+            var entity = await _context.PropertyFeatures.FindAsync(propertyFeaturesId);
+
+            _context.PropertyFeatures.Remove(entity);
+            return await _context.SaveChangesAsync() == 1;
+
+        }
     }
 }
