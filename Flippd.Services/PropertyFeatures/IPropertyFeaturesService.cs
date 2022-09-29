@@ -11,8 +11,11 @@ namespace Flippd.Services.PropertyFeatures
     {
         Task<bool> CreatePropertyFeaturesAsync(PropertyFeaturesCreate model);
 
-        Task<ListingEntity> GetPropertyFeaturesByListingId(int PropertyFeaturesId);
-        Task<IEnumerable<PropertyFeaturesDetail>> GetPropertyFeaturesByListingIdAsync();
+        // Task<ListingEntity> GetPropertyFeaturesByListingId(int PropertyFeaturesId);
+        Task<PropertyFeaturesDetail>
+        GetPropertyFeaturesByListingIdAsync(int propFeaturesId);
+        Task<PropertyFeaturesDetail> GetPropertyFeaturesByPropertyFeaturesIdAsync(int propertyFeaturesId);
         Task<bool> UpdatePropertyFeaturesAsync(PropertyFeaturesUpdate request);
+        Task<bool> DeletePropertyFeaturesAsync(int propertyFeaturesId);
     }
 }

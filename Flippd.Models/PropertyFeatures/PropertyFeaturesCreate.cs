@@ -19,5 +19,9 @@ namespace Flippd.Models.PropertyFeatures
 
         [Required]
         public int YearBuilt { get; set; }
+
+        public int LotSize { get; set; }
+        
+        public int GarageSpaces { get; set; }
     }
 }

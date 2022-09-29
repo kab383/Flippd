@@ -134,6 +134,28 @@ namespace Flippd.Services.Listing
             
         }
 
+        // public async Task<PropertyFeaturesDetail> GetPropertyFeaturesByListingIdAsync(int listingId)
+        // {
+        //     var entity = await _context.PropertyFeatures.Include(r => r.ListingEntity).FirstOrDefaultAsync(e => e.Id == PropertyFeaturesId);
+        //     if(entity is null)
+        //         return null;
+
+        //     var PropertyFeaturesDetail = new PropertyFeaturesDetail
+        //     {
+        //         Id = entity.Id,
+        //         Bedrooms = entity.Bedrooms,
+        //         Baths = entity.Baths,
+        //         GarageSpaces = entity.GarageSpaces,
+        //         SquareFootage = entity.SquareFootage,
+        //         LotSize = entity.LotSize,
+        //         YearBuilt = entity.YearBuilt
+        //     };
+
+        //     return PropertyFeaturesDetail;
+
+        // }
+
+
         public async Task<bool> UpdateListingAsync(ListingUpdate request)
         {
             var listingEntity = await _context.Listings.FindAsync(request.Id);
@@ -159,6 +181,11 @@ namespace Flippd.Services.Listing
             var listingEntity = await _context.Listings.FindAsync(listingId);
             _context.Listings.Remove(listingEntity);
             return await _context.SaveChangesAsync() == 1;
+        }
+
+        public Task<ListingDetail> GetPropertyFeaturesByListingId(int listingId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
